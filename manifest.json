@@ -1,0 +1,9 @@
+{
+  "name": "光の国の大冒険",
+  "short_name": "光の国",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8f6f2",
+  "theme_color": "#9bb8df",
+  "icons": []
+}

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#9bb8df">
+<title>光の国の大冒険</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;background:#f8f6f2;color:#4a4650}
+button{font:inherit;border:0;cursor:pointer}
+.app{max-width:960px;margin:auto;min-height:100vh;padding-bottom:88px}
+header{padding:16px 18px 8px;display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:9px}.logo .star{font-size:28px}.logo h1{font-size:21px;margin:0}
+.coins{background:#fff8d8;padding:9px 14px;border-radius:22px;font-weight:700;box-shadow:0 2px 7px #00000010}
+.hero{margin:10px 15px;padding:20px;border-radius:28px;background:linear-gradient(145deg,#e8f2ff,#fffaf1);box-shadow:0 5px 18px #00000010;position:relative;overflow:hidden}
+.hero:after{content:"☁️  ☁️   ✨";position:absolute;right:12px;top:12px;opacity:.55}
+.hero h2{margin:0 0 5px;font-size:21px}.hero p{margin:0;font-size:14px}
+.route{display:flex;gap:7px;align-items:center;overflow:auto;margin-top:17px;padding-bottom:3px}
+.node{min-width:86px;text-align:center;padding:10px 7px;border-radius:18px;background:#fff;box-shadow:0 2px 8px #00000009;font-size:12px}
+.node .emoji{font-size:25px}.node.current{background:#fff1bf}.arrow{color:#9da4b1}
+.card{margin:14px 15px;background:#fff;border-radius:22px;padding:17px;box-shadow:0 3px 14px #00000009}
+.card h3{margin:0 0 12px;font-size:17px}
+.cat{display:inline-block;padding:5px 10px;border-radius:12px;background:#eef3ff;color:#667fae;font-size:12px;margin:7px 0 3px}
+.mission{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid #f0edf0}
+.mission:last-child{border-bottom:0}
+.check{width:35px;height:35px;border-radius:50%;background:#edf2fc;color:#6785ba;font-weight:800;flex:none}
+.check.done{background:#c9ebcf;color:#3c7c4a}
+.mission .name{flex:1;min-width:0}.small{font-size:12px;color:#8b8790}
+.progress{height:7px;background:#f0f0f3;border-radius:10px;overflow:hidden;margin-top:6px}
+.bar{height:100%;background:#9bb8df;border-radius:10px}
+.catTitle{margin-top:9px}
+.mascot{display:flex;gap:13px;align-items:center}
+.mascotFace{font-size:44px;background:#f4f0ff;border-radius:50%;width:67px;height:67px;display:grid;place-items:center}
+.mascot p{margin:4px 0;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.place{padding:17px;border-radius:19px;background:#faf9ff;min-height:105px}
+.place .big{font-size:30px}.place b{display:block;margin:3px 0}
+.shop{display:flex;gap:10px;flex-wrap:wrap}
+.item{background:#fff;border:1px solid #eeeaf0;border-radius:17px;padding:12px;min-width:130px;flex:1}
+.item .big{font-size:28px}.item button{margin-top:8px}
+.btn{background:#7899c5;color:#fff;padding:10px 14px;border-radius:14px;font-weight:700}
+.btn.secondary{background:#edf2ff;color:#5f78a9}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.people{display:flex;gap:10px;flex-wrap:wrap}
+.person{background:#fff8f2;border-radius:18px;padding:12px;flex:1;min-width:145px}
+.person .face{font-size:34px}.person b{display:block}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fffffff2;backdrop-filter:blur(9px);display:flex;justify-content:center;gap:6px;padding:9px;border-top:1px solid #eeeaf0;z-index:5}
+.nav button{background:transparent;padding:10px 13px;border-radius:13px}.nav button.active{background:#edf2ff;color:#5f78a9;font-weight:700}
+.modal{position:fixed;inset:0;background:#0005;display:none;align-items:center;justify-content:center;padding:20px;z-index:10}
+.modal.show{display:flex}.modalbox{background:#fff;border-radius:26px;padding:24px;max-width:430px;width:100%;text-align:center;box-shadow:0 12px 35px #0003}
+.modalbox .face{font-size:55px}.modalbox h2{margin:7px 0}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="logo"><span class="star">✨</span><h1>光の国の大冒険</h1></div>
+  <div class="coins">🪙 <span id="coins">0</span></div>
+</header>
+
+<section id="home">
+<div class="hero">
+<h2>🏫 ひろお学園への道</h2>
+<p>一歩ずつ進めば、光の国は少しずつ広がっていくよ。</p>
+<div class="route">
+<div class="node current"><div class="emoji">🏰</div>栄光の丘</div><div class="arrow">→</div>
+<div class="node"><div class="emoji">🌊</div>英語の海</div><div class="arrow">→</div>
+<div class="node"><div class="emoji">🌸</div>和の島</div><div class="arrow">→</div>
+<div class="node"><div class="emoji">✨</div>光の国</div><div class="arrow">→</div>
+<div class="node"><div class="emoji">🏫</div>ひろお学園</div>
+</div>
+</div>
+
+<div class="card mascot">
+<div class="mascotFace">🐱</div>
+<div><b>モコからのひとこと</b><p id="catMsg">「今日も一歩進めば、それで大冒険だよ！」</p></div>
+</div>
+
+<div class="card">
+<h3>📚 今日の冒険</h3>
+<div id="todayList"></div>
+</div>
+
+<div class="card">
+<h3>🌈 今日のバランス</h3>
+<p class="small">いろいろな冒険をすると、ちょっぴりボーナスがもらえるよ。</p>
+<div id="balance"></div>
+</div>
+
+<div class="card">
+<h3>👧 今日は誰が遊びに来るかな？</h3>
+<div class="people">
+<div class="person"><div class="face">👧</div><b>えばちゃん</b><span class="small">ちょっと背が高くて、かわいいおでこがチャームポイント</span></div>
+<div class="person"><div class="face">👩</div><b>あやさん</b><span class="small">あたたかくて包容力のある雰囲気</span></div>
+<div class="person"><div class="face">👧</div><b>ナナちゃん</b><span class="small">くりっとした目の2歳の女の子</span></div>
+</div>
+<p class="small" style="margin-bottom:0">※試作品では登場キャラクターのイメージを確認できるようにしています。</p>
+</div>
+</section>
+
+<section id="town" style="display:none">
+<div class="card"><h3>🏠 わたしの街</h3><p>集めたコインで、街を少しずつかわいくしよう。</p>
+<div class="grid">
+<div class="place">🏠<b>ネコのおうち</b><span>Lv.1</span></div>
+<div class="place">☕<b>空のカフェ</b><span id="cafe">建設前</span></div>
+<div class="place">🐾<b>ペットショップ</b><span id="petshop">建設前</span></div>
+<div class="place">👗<b>おしゃれのお店</b><span>準備中</span></div>
+<div class="place">👘<b>和の島</b><span>百人一首の冒険</span></div>
+<div class="place">🚢<b>飛行船</b><span>これから冒険へ！</span></div>
+</div></div>
+<div class="card"><h3>🛍️ コインショップ</h3><div class="shop" id="shop"></div></div>
+</section>
+
+<section id="settings" style="display:none">
+<div class="card"><h3>⚙️ お母さんの設定</h3>
+<p class="small">今は試作品なので、夏休みのミッションを入れています。完了状態はこの端末に保存されます。</p>
+<div id="settingsList"></div>
+<button class="btn secondary" onclick="resetAll()">進捗をリセット</button>
+</div>
+</section>
+
+<nav class="nav">
+<button class="active" onclick="showPage('home',this)">✨冒険</button>
+<button onclick="showPage('town',this)">🏠街</button>
+<button onclick="showPage('settings',this)">⚙️設定</button>
+</nav>
+</div>
+
+<div class="modal" id="modal"><div class="modalbox">
+<div class="face">🐱✨</div><h2>できたね！</h2><p id="modalText"></p><button class="btn" onclick="closeModal()">冒険を続ける</button>
+</div></div>
+
+<script>
+const initial=[
+{id:1,cat:"🏰 栄光の丘・サマートレーニング",name:"算数：見開き1ページ",total:30,done:0,coin:4},
+{id:2,cat:"🏰 栄光の丘・サマートレーニング",name:"国語：見開き1ページ",total:30,done:0,coin:4},
+{id:3,cat:"🏰 栄光の丘・サマートレーニング",name:"理科：見開き1ページ",total:30,done:0,coin:4},
+{id:4,cat:"🏰 栄光の丘・サマートレーニング",name:"社会：見開き1ページ",total:30,done:0,coin:4},
+{id:5,cat:"🏰 栄光の丘・過去分",name:"計算日記：1ページ",total:108,done:0,coin:2},
+{id:6,cat:"🏰 栄光の丘・過去分",name:"漢字日記：1ページ",total:108,done:0,coin:2},
+{id:7,cat:"🏰 栄光の丘・過去分",name:"新演習 国語：見開き1ページ",total:100,done:0,coin:2},
+{id:8,cat:"🏰 栄光の丘・過去分",name:"新演習 算数：1ステージ",total:100,done:0,coin:2},
+{id:9,cat:"🏰 栄光の丘・過去分",name:"新演習 理科：1ステージ",total:60,done:0,coin:2},
+{id:10,cat:"🏰 栄光の丘・過去分",name:"新演習 社会：1ステージ",total:60,done:0,coin:2},
+{id:11,cat:"🌊 英語の海・KA",name:"ホームワーク：Day 1〜3",total:12,done:0,coin:3},
+{id:12,cat:"🌊 英語の海・KA",name:"KAコネクト：1回参加",total:12,done:0,coin:5},
+{id:13,cat:"🎹 音楽の街",name:"ピアノ：20分",total:30,done:0,coin:3},
+{id:14,cat:"🇰🇷 韓国語の島",name:"EBS：30分",total:30,done:0,coin:3}
+];
+let data=JSON.parse(localStorage.getItem("hikariDataV2")||"null")||initial;
+let coins=Number(localStorage.getItem("hikariCoinsV2")||0);
+let bought=JSON.parse(localStorage.getItem("hikariBoughtV2")||"[]");
+
+function save(){localStorage.setItem("hikariDataV2",JSON.stringify(data));localStorage.setItem("hikariCoinsV2",coins);localStorage.setItem("hikariBoughtV2",JSON.stringify(bought))}
+function render(){
+document.getElementById("coins").textContent=coins;
+const groups={};data.forEach(x=>(groups[x.cat]??=[]).push(x));
+let html="";
+for(const [cat,items] of Object.entries(groups)){
+html+=`<div class="cat">${cat}</div>`;
+items.forEach(x=>{
+const pct=Math.round(x.done/x.total*100);
+html+=`<div class="mission"><button class="check ${x.done>=x.total?'done':''}" onclick="complete(${x.id})">${x.done>=x.total?'✓':'+'}</button><div class="name"><b>${x.name}</b><div class="small">${x.done}/${x.total} クリア</div><div class="progress"><div class="bar" style="width:${pct}%"></div></div></div></div>`;
+});
+}
+document.getElementById("todayList").innerHTML=html;
+document.getElementById("settingsList").innerHTML=data.map(x=>`<div class="mission"><div class="name"><b>${x.cat}</b><div class="small">${x.name}：${x.done}/${x.total}</div></div></div>`).join("");
+const active=new Set(data.filter(x=>x.done>0).map(x=>x.cat));
+document.getElementById("balance").innerHTML=`<div class="small">今日ふれた冒険：${active.size}カテゴリ</div><div class="progress"><div class="bar" style="width:${Math.min(active.size/5*100,100)}%"></div></div>`;
+renderShop();
+}
+function complete(id){
+const x=data.find(a=>a.id===id);if(!x||x.done>=x.total)return;
+x.done++;coins+=x.coin;save();render();
+let msg=`「${x.name}」を1つクリア！ 🪙 +${x.coin}<br><br>🐱 モコ「すごい！今日もちゃんと前に進んだね！」`;
+if(x.name.includes("KAコネクト"))msg+=`<br><br>🌊 英語の海のボーナス冒険！`;
+if(x.name.includes("算数") && Math.random()<0.35)msg+=`<br><br>🐱 モコ「そうだ、単位もちゃんと書けたかな？できてたら花丸だよ！」`;
+if(x.name.includes("国語") && Math.random()<0.25)msg+=`<br><br>🐱 モコ「やり直しがあったら、もう一度見てみようね。」`;
+document.getElementById("modalText").innerHTML=msg;document.getElementById("modal").classList.add("show");
+}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function showPage(page,btn){
+["home","town","settings"].forEach(p=>document.getElementById(p).style.display=p===page?"block":"none");
+document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
+}
+const items=[
+["☕","カフェの看板",10,"街にカフェができる"],
+["🪴","お花の鉢植え",6,"ネコのおうちがかわいくなる"],
+["🐾","ネコのお友だち",15,"新しいペットがやってくる"],
+["👗","おしゃれな服",8,"クローゼットに追加"],
+["👘","和の島のお飾り",12,"百人一首の島に置ける"],
+["🚢","飛行船のパーツ",20,"冒険の飛行船が少し豪華になる"]
+];
+function renderShop(){document.getElementById("shop").innerHTML=items.map((it,i)=>`<div class="item"><div class="big">${it[0]}</div><b>${it[1]}</b><div class="small">${it[2]}コイン</div><button class="btn ${bought.includes(i)?'secondary':''}" ${bought.includes(i)||coins<it[2]?'disabled':''} onclick="buy(${i})">${bought.includes(i)?'購入済み':'買う'}</button></div>`).join("")}
+function buy(i){const it=items[i];if(bought.includes(i)||coins<it[2])return;coins-=it[2];bought.push(i);save();render();if(i===0)document.getElementById("cafe").textContent="建設済み！";if(i===2)document.getElementById("petshop").textContent="オープン！";alert(`✨ ${it[1]}を手に入れたよ！`)}
+function resetAll(){if(confirm("進捗を最初に戻しますか？")){localStorage.removeItem("hikariDataV2");localStorage.removeItem("hikariCoinsV2");localStorage.removeItem("hikariBoughtV2");location.reload()}}
+render();
+</script>
+</body>
+</html>
