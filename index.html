@@ -1,1204 +1,232 @@
 
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#9bb8df">
-<title>光の国の大冒険</title><style>
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;
-  background:#f8f6f2;
-  color:#4a4650;
-}
-
-button{
-  font:inherit;
-  border:0;
-  cursor:pointer;
-}
-
-.app{
-  max-width:960px;
-  margin:auto;
-  min-height:100vh;
-  padding-bottom:88px;
-}
-
-header{
-  padding:16px 18px 8px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:9px;
-}
-
-.logo .star{
-  font-size:28px;
-}
-
-.logo h1{
-  font-size:21px;
-  margin:0;
-}
-
-.coins{
-  background:#fff8d8;
-  padding:9px 14px;
-  border-radius:22px;
-  font-weight:700;
-  box-shadow:0 2px 7px #00000010;
-}
-
-/* ====================
-   MAP
-==================== */
-
-.mapHero{
-  margin:10px 15px;
-  padding:20px 15px 25px;
-  border-radius:30px;
-  background:linear-gradient(145deg,#e8f2ff,#fffaf1);
-  box-shadow:0 5px 18px #00000010;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-
-.mapHero:before{
-  content:"☁️";
-  position:absolute;
-  left:18px;
-  top:15px;
-  font-size:30px;
-  opacity:.5;
-}
-
-.mapHero:after{
-  content:"☁️ ✨";
-  position:absolute;
-  right:18px;
-  top:20px;
-  font-size:25px;
-  opacity:.5;
-}
-
-.mapHero h2{
-  margin:0 0 4px;
-  font-size:22px;
-}
-
-.mapHero p{
-  margin:0;
-  font-size:13px;
-  color:#77737c;
-}
-
-.map{
-  margin:18px auto 0;
-  max-width:620px;
-  min-height:590px;
-  position:relative;
-  background:
-    radial-gradient(circle at 15% 25%,#ffffffaa 0 35px,transparent 36px),
-    radial-gradient(circle at 85% 65%,#ffffffaa 0 45px,transparent 46px),
-    linear-gradient(180deg,#dff1ff 0%,#eef8e6 48%,#fff4d9 100%);
-  border-radius:28px;
-  overflow:hidden;
-  border:3px solid #ffffff;
-  box-shadow:inset 0 0 30px #ffffff88;
-}
-
-/* 川 */
-
-.map:before{
-  content:"";
-  position:absolute;
-  width:90px;
-  height:700px;
-  background:#b9e4f5aa;
-  left:43%;
-  top:-50px;
-  transform:rotate(10deg);
-  border-radius:50%;
-}
-
-/* 道 */
-
-.path{
-  position:absolute;
-  width:8px;
-  background:#d5c39d;
-  border-radius:10px;
-  z-index:1;
-}
-
-.path.p1{
-  height:120px;
-  left:49%;
-  top:430px;
-  transform:rotate(-18deg);
-}
-
-.path.p2{
-  height:115px;
-  left:49%;
-  top:315px;
-  transform:rotate(12deg);
-}
-
-.path.p3{
-  height:115px;
-  left:50%;
-  top:200px;
-  transform:rotate(-12deg);
-}
-
-.path.p4{
-  height:105px;
-  left:50%;
-  top:95px;
-  transform:rotate(10deg);
-}
-
-/* マップの場所 */
-
-.mapNode{
-  position:absolute;
-  z-index:2;
-  width:105px;
-  min-height:105px;
-  border-radius:50%;
-  background:#ffffffee;
-  box-shadow:0 5px 14px #00000018;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:8px;
-  transition:.15s;
-}
-
-.mapNode:hover{
-  transform:scale(1.05);
-}
-
-.mapNode:active{
-  transform:scale(.96);
-}
-
-.mapNode .emoji{
-  font-size:38px;
-  line-height:1.1;
-}
-
-.mapNode b{
-  font-size:12px;
-  margin-top:4px;
-}
-
-.mapNode .nodeProgress{
-  font-size:10px;
-  color:#7b7880;
-  margin-top:2px;
-}
-
-.mapNode.current{
-  background:#fff1bf;
-  box-shadow:0 0 0 5px #ffffff99,0 6px 18px #00000020;
-}
-
-.mapNode.locked{
-  filter:grayscale(.4);
-  opacity:.72;
-}
-
-.node-start{
-  left:7%;
-  bottom:35px;
-}
-
-.node-mountain{
-  right:8%;
-  bottom:145px;
-}
-
-.node-sea{
-  left:8%;
-  bottom:255px;
-}
-
-.node-music{
-  right:8%;
-  bottom:365px;
-}
-
-.node-korea{
-  left:8%;
-  top:125px;
-}
-
-.node-japan{
-  right:8%;
-  top:40px;
-}
-
-.node-school{
-  left:calc(50% - 52px);
-  top:18px;
-  background:#fff8d8;
-}
-
-/* マップ説明 */
-
-.mapHint{
-  margin:12px 0 0;
-  font-size:13px;
-  color:#77737c;
-}
-
-/* ====================
-   CARDS
-==================== */
-
-.card{
-  margin:14px 15px;
-  background:#fff;
-  border-radius:22px;
-  padding:17px;
-  box-shadow:0 3px 14px #00000009;
-}
-
-.card h3{
-  margin:0 0 12px;
-  font-size:17px;
-}
-
-.mascot{
-  display:flex;
-  gap:13px;
-  align-items:center;
-}
-
-.mascotFace{
-  font-size:44px;
-  background:#f4f0ff;
-  border-radius:50%;
-  width:67px;
-  height:67px;
-  display:grid;
-  place-items:center;
-  flex:none;
-}
-
-.mascot p{
-  margin:4px 0;
-  font-size:14px;
-}
-
-.small{
-  font-size:12px;
-  color:#8b8790;
-}
-
-/* ====================
-   MISSIONS
-==================== */
-
-.placeTitle{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:15px;
-}
-
-.placeTitle .big{
-  font-size:40px;
-}
-
-.placeTitle h3{
-  margin:0;
-}
-
-.mission{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  padding:11px 0;
-  border-bottom:1px solid #f0edf0;
-}
-
-.mission:last-child{
-  border-bottom:0;
-}
-
-.check{
-  width:35px;
-  height:35px;
-  border-radius:50%;
-  background:#edf2fc;
-  color:#6785ba;
-  font-weight:800;
-  flex:none;
-}
-
-.check.done{
-  background:#c9ebcf;
-  color:#3c7c4a;
-}
-
-.mission .name{
-  flex:1;
-  min-width:0;
-}
-
-.progress{
-  height:7px;
-  background:#f0f0f3;
-  border-radius:10px;
-  overflow:hidden;
-  margin-top:6px;
-}
-
-.bar{
-  height:100%;
-  background:#9bb8df;
-  border-radius:10px;
-}
-
-.btn{
-  background:#7899c5;
-  color:#fff;
-  padding:10px 14px;
-  border-radius:14px;
-  font-weight:700;
-}
-
-.btn.secondary{
-  background:#edf2ff;
-  color:#5f78a9;
-}
-
-.btn:disabled{
-  opacity:.45;
-  cursor:not-allowed;
-}
-
-/* ====================
-   TOWN
-==================== */
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-}
-
-.place{
-  padding:17px;
-  border-radius:19px;
-  background:#faf9ff;
-  min-height:105px;
-}
-
-.place .big{
-  font-size:30px;
-}
-
-.place b{
-  display:block;
-  margin:3px 0;
-}
-
-.shop{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.item{
-  background:#fff;
-  border:1px solid #eeeaf0;
-  border-radius:17px;
-  padding:12px;
-  min-width:130px;
-  flex:1;
-}
-
-.item .big{
-  font-size:28px;
-}
-
-.item button{
-  margin-top:8px;
-}
-
-/* ====================
-   SETTINGS
-==================== */
-
-.nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#fffffff2;
-  backdrop-filter:blur(9px);
-  display:flex;
-  justify-content:center;
-  gap:6px;
-  padding:9px;
-  border-top:1px solid #eeeaf0;
-  z-index:5;
-}
-
-.nav button{
-  background:transparent;
-  padding:10px 13px;
-  border-radius:13px;
-}
-
-.nav button.active{
-  background:#edf2ff;
-  color:#5f78a9;
-  font-weight:700;
-}
-
-/* ====================
-   MODAL
-==================== */
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:#0005;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  z-index:10;
-}
-
-.modal.show{
-  display:flex;
-}
-
-.modalbox{
-  background:#fff;
-  border-radius:26px;
-  padding:24px;
-  max-width:430px;
-  width:100%;
-  text-align:center;
-  box-shadow:0 12px 35px #0003;
-}
-
-.modalbox .face{
-  font-size:55px;
-}
-
-.modalbox h2{
-  margin:7px 0;
-}
-
-/* ====================
-   RESPONSIVE
-==================== */
-
-@media(min-width:700px){
-  .grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .map{
-    min-height:650px;
-  }
-
-  .node-start{
-    left:15%;
-  }
-
-  .node-mountain{
-    right:18%;
-  }
-
-  .node-sea{
-    left:15%;
-  }
-
-  .node-music{
-    right:18%;
-  }
-
-  .node-korea{
-    left:15%;
-  }
-
-  .node-japan{
-    right:18%;
-  }
-}
-</style></head><body><div class="app"><header>
-  <div class="logo">
-    <span class="star">✨</span>
-    <h1>光の国の大冒険</h1>
-  </div> <div class="coins">
-    🪙 <span id="coins">0</span>
-  </div>
-</header><!-- ====================
-     冒険マップ
-==================== --><section id="home"><div class="mapHero"><h2>🗺️ 光の国への大冒険</h2>
-<p>行きたい場所をタップして、今日の冒険を始めよう！</p><div class="map"> <div class="path p1"></div>
-  <div class="path p2"></div>
-  <div class="path p3"></div>
-  <div class="path p4"></div><button class="mapNode node-start current"
-onclick="openPlace('start')">
-<div class="emoji">🏡</div>
-<b>冒険のはじまり</b>
-<div class="nodeProgress">ここから出発！</div>
-</button>
-
-<button class="mapNode node-mountain"
-onclick="openPlace('mountain')">
-<div class="emoji">🏰</div>
-<b>栄光の丘</b>
-<div class="nodeProgress" id="mountainProgress"></div>
-</button>
-
-<button class="mapNode node-sea"
-onclick="openPlace('sea')">
-<div class="emoji">🌊</div>
-<b>英語の海</b>
-<div class="nodeProgress" id="seaProgress"></div>
-</button>
-
-<button class="mapNode node-music"
-onclick="openPlace('music')">
-<div class="emoji">🎹</div>
-<b>音楽の街</b>
-<div class="nodeProgress" id="musicProgress"></div>
-</button>
-
-<button class="mapNode node-korea"
-onclick="openPlace('korea')">
-<div class="emoji">🇰🇷</div>
-<b>韓国語の島</b>
-<div class="nodeProgress" id="koreaProgress"></div>
-</button>
-
-<button class="mapNode node-japan"
-onclick="openPlace('japan')">
-<div class="emoji">🌸</div>
-<b>和の島</b>
-<div class="nodeProgress">これから冒険！</div>
-</button>
-
-<button class="mapNode node-school"
-onclick="openPlace('school')">
-<div class="emoji">🏫</div>
-<b>ひろお学園</b>
-<div class="nodeProgress">ゴール</div>
-</button>
-
-</div><p class="mapHint">✨ いろいろな場所を冒険すると、光の国に近づいていくよ！</p></div><div class="card mascot">
-  <div class="mascotFace">🐱</div>
-  <div>
-    <b>モコからのひとこと</b>
-    <p id="catMsg">「今日はどこから冒険する？」</p>
-  </div>
-</div><!-- 選んだ場所のミッション --><div class="card" id="missionCard" style="display:none"> <div class="placeTitle">
-    <div class="big" id="placeEmoji">🏰</div>
-    <div>
-      <h3 id="placeName">栄光の丘</h3>
-      <div class="small" id="placeDescription"></div>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>光の国の大冒険</title>
+<style>
+  :root { --primary: #ff6b9d; --bg: #0c1017; --text: #2f3542; }
+  * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; font-family: sans-serif; }
+  body, html { width: 100%; height: 100%; overflow: hidden; background: var(--bg); color: var(--text); }
+  #app { width: 100%; max-width: 480px; height: 100%; margin: 0 auto; position: relative; background: linear-gradient(180deg, #a1c4fd, #c2e9fb); display: flex; flex-direction: column; }
+  header { height: 50px; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: space-between; padding: 0 12px; z-index: 100; border-bottom: 2px solid rgba(255,255,255,0.5); }
+  .badge { background: #fff; padding: 4px 10px; border-radius: 20px; font-weight: bold; font-size: 13px; border: 1.5px solid #e1b12c; }
+  .screen { flex: 1; position: relative; overflow-y: auto; display: none; }
+  .screen.active { display: block; }
+  .map-container { position: relative; min-height: 650px; background: linear-gradient(135deg, #74ebe5, #89f7fe); }
+  svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .node { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; cursor: pointer; z-index: 10; }
+  .icon-box { width: 56px; height: 56px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); animation: float 3s infinite ease-in-out; }
+  .locked .icon-box { filter: grayscale(1); opacity: 0.6; }
+  .label { background: rgba(0,0,0,0.7); color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: bold; margin-top: 4px; white-space: nowrap; }
+  .avatar { position: absolute; width: 36px; height: 36px; background: #ffa502; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; border: 2px solid #fff; transition: all 0.7s; z-index: 20; pointer-events: none; }
+  .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
+  .modal.active { display: flex; }
+  .card { background: #fff; border-radius: 20px; padding: 20px; width: 100%; max-width: 360px; text-align: center; border: 4px solid var(--primary); }
+  .btn { background: linear-gradient(180deg, #ff7675, #d63031); color: #fff; border: none; padding: 12px 24px; border-radius: 25px; font-weight: bold; font-size: 15px; width: 100%; cursor: pointer; margin-top: 12px; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div style="display:flex; gap:8px;">
+      <div class="badge">🪙 <span id="coins">0</span></div>
+      <div class="badge">⭐ <span id="stars">0</span></div>
     </div>
-  </div> <div id="placeMissions"></div></div><div class="card"><h3>🌈 今日のバランス</h3><p class="small">
-いろいろな冒険をすると、ちょっぴりボーナスがもらえるよ。
-</p><div id="balance"></div></div></section><!-- ====================
-     街
-==================== --><section id="town" style="display:none"><div class="card"><h3>🏠 わたしの街</h3><p>集めたコインで、街を少しずつかわいくしよう。</p><div class="grid"><div class="place">
-🏠
-<b>ネコのおうち</b>
-<span>Lv.1</span>
-</div><div class="place">
-☕
-<b>空のカフェ</b>
-<span id="cafe">建設前</span>
-</div><div class="place">
-🐾
-<b>ペットショップ</b>
-<span id="petshop">建設前</span>
-</div><div class="place">
-👗
-<b>おしゃれのお店</b>
-<span>準備中</span>
-</div><div class="place">
-👘
-<b>和の島</b>
-<span>百人一首の冒険</span>
-</div><div class="place">
-🚢
-<b>飛行船</b>
-<span>これから冒険へ！</span>
-</div></div></div><div class="card"><h3>🛍️ コインショップ</h3><div class="shop" id="shop"></div></div></section><!-- ====================
-     設定
-==================== --><section id="settings" style="display:none"><div class="card"><h3>⚙️ お母さんの設定</h3><p class="small">
-今は試作品なので、夏休みのミッションを入れています。
-完了状態はこの端末に保存されます。
-</p><div id="settingsList"></div><button class="btn secondary" onclick="resetAll()">
-進捗をリセット
-</button></div></section><!-- ====================
-     ナビ
-==================== --><nav class="nav"><button class="active" onclick="showPage('home',this)">
-🗺️マップ
-</button><button onclick="showPage('town',this)">
-🏠街
-</button><button onclick="showPage('settings',this)">
-⚙️設定
-</button></nav></div><!-- ====================
-     完了モーダル
-==================== --><div class="modal" id="modal"><div class="modalbox"><div class="face">🐱✨</div><h2>できたね！</h2><p id="modalText"></p><button class="btn" onclick="closeModal()">
-冒険を続ける
-</button></div></div><script>
+    <button onclick="toggleTown()" style="border:none; background:#fff; width:36px; height:36px; border-radius:50%; font-size:18px;">☕</button>
+  </header>
 
-/* ====================
-   ミッション
-==================== */
+  <!-- WORLD MAP -->
+  <div id="world-screen" class="screen active">
+    <div class="map-container" id="world-map">
+      <svg id="world-svg"></svg>
+      <div id="player" class="avatar">🐱</div>
+    </div>
+  </div>
 
-const initial=[
+  <!-- STAGE MAP -->
+  <div id="stage-screen" class="screen">
+    <div style="background:#fff; padding:10px; display:flex; align-items:center; gap:10px;">
+      <button onclick="showScreen('world-screen')" style="border:none; background:none; font-size:18px;">⬅️</button>
+      <b id="stage-title">ステージ</b>
+    </div>
+    <div class="map-container" id="stage-map" style="background:#f1f2f6;">
+      <svg id="stage-svg"></svg>
+    </div>
+  </div>
 
-{id:1,cat:"🏰 栄光の丘・サマートレーニング",name:"算数：見開き1ページ",total:30,done:0,coin:4},
+  <!-- TOWN SCREEN -->
+  <div id="town-screen" class="screen">
+    <div style="background:#fff; padding:10px; display:flex; align-items:center; gap:10px;">
+      <button onclick="showScreen('world-screen')" style="border:none; background:none; font-size:18px;">⬅️</button>
+      <b>☕ ひかりの街</b>
+    </div>
+    <div style="padding:15px; text-align:center;">
+      <div id="town-items" style="height:150px; background:#81ecec; border-radius:15px; margin-bottom:15px; display:flex; align-items:center; justify-content:center; gap:10px; font-size:30px;"></div>
+      <h3>街のアイテム</h3>
+      <div id="shop" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;"></div>
+    </div>
+  </div>
+</div>
 
-{id:2,cat:"🏰 栄光の丘・サマートレーニング",name:"国語：見開き1ページ",total:30,done:0,coin:4},
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="card">
+    <h3 id="m-title" style="color:var(--primary);">試練</h3>
+    <div style="background:#f1f2f6; border-radius:10px; padding:10px; margin:10px 0; font-size:13px; text-align:left;">
+      <b id="m-speaker">モコ：</b><span id="m-text"></span>
+    </div>
+    <div style="font-weight:bold;" id="m-task"></div>
+    <button class="btn" onclick="clearTask()">✨ クリアしたよ！</button>
+    <button onclick="closeModal()" style="border:none; background:none; color:#aaa; margin-top:8px; font-size:12px;">あとで</button>
+  </div>
+</div>
 
-{id:3,cat:"🏰 栄光の丘・サマートレーニング",name:"理科：見開き1ページ",total:30,done:0,coin:4},
-
-{id:4,cat:"🏰 栄光の丘・サマートレーニング",name:"社会：見開き1ページ",total:30,done:0,coin:4},
-
-{id:5,cat:"🏰 栄光の丘・過去分",name:"計算日記：1ページ",total:108,done:0,coin:2},
-
-{id:6,cat:"🏰 栄光の丘・過去分",name:"漢字日記：1ページ",total:108,done:0,coin:2},
-
-{id:7,cat:"🏰 栄光の丘・過去分",name:"新演習 国語：見開き1ページ",total:100,done:0,coin:2},
-
-{id:8,cat:"🏰 栄光の丘・過去分",name:"新演習 算数：1ステージ",total:100,done:0,coin:2},
-
-{id:9,cat:"🏰 栄光の丘・過去分",name:"新演習 理科：1ステージ",total:60,done:0,coin:2},
-
-{id:10,cat:"🏰 栄光の丘・過去分",name:"新演習 社会：1ステージ",total:60,done:0,coin:2},
-
-{id:11,cat:"🌊 英語の海・KA",name:"ホームワーク：Day 1〜3",total:12,done:0,coin:3},
-
-{id:12,cat:"🌊 英語の海・KA",name:"KAコネクト：1回参加",total:12,done:0,coin:5},
-
-{id:13,cat:"🎹 音楽の街",name:"ピアノ：20分",total:30,done:0,coin:3},
-
-{id:14,cat:"🇰🇷 韓国語の島",name:"EBS：30分",total:30,done:0,coin:3}
-
+<script>
+const AREAS = [
+  { id: "eiko", name: "栄光の丘", icon: "🏰", x: 50, y: 80, req: 0 },
+  { id: "english", name: "英語の海", icon: "🌊", x: 25, y: 55, req: 3 },
+  { id: "music", name: "音楽の街", icon: "🎹", x: 75, y: 55, req: 6 },
+  { id: "korean", name: "韓国語の島", icon: "🇰🇷", x: 30, y: 30, req: 10 },
+  { id: "japan", name: "和の島", icon: "🌸", x: 70, y: 30, req: 14 },
+  { id: "hiroo", name: "ひろお学園", icon: "🏫", x: 50, y: 10, req: 20 }
 ];
 
-
-/* ====================
-   データ保存
-==================== */
-
-let data=
-JSON.parse(localStorage.getItem("hikariDataV3")||"null")
-||initial;
-
-let coins=
-Number(localStorage.getItem("hikariCoinsV3")||0);
-
-let bought=
-JSON.parse(localStorage.getItem("hikariBoughtV3")||"[]");
-
-
-function save(){
-
-localStorage.setItem(
-"hikariDataV3",
-JSON.stringify(data)
-);
-
-localStorage.setItem(
-"hikariCoinsV3",
-coins
-);
-
-localStorage.setItem(
-"hikariBoughtV3",
-JSON.stringify(bought)
-);
-
-}
-
-
-/* ====================
-   場所データ
-==================== */
-
-const places={
-
-mountain:{
-emoji:"🏰",
-name:"栄光の丘",
-description:"学校へ向かうための、最初の大冒険！",
-ids:[1,2,3,4,5,6,7,8,9,10]
-},
-
-sea:{
-emoji:"🌊",
-name:"英語の海",
-description:"英語の力を少しずつ育てよう！",
-ids:[11,12]
-},
-
-music:{
-emoji:"🎹",
-name:"音楽の街",
-description:"音楽も大切な冒険のひとつ。",
-ids:[13]
-},
-
-korea:{
-emoji:"🇰🇷",
-name:"韓国語の島",
-description:"韓国語の海を探検しよう！",
-ids:[14]
-},
-
-japan:{
-emoji:"🌸",
-name:"和の島",
-description:"百人一首など、日本の冒険が待っているよ。",
-ids:[]
-},
-
-school:{
-emoji:"🏫",
-name:"ひろお学園",
-description:"いろいろな冒険の先にあるゴール！",
-ids:[]
-},
-
-start:{
-emoji:"🏡",
-name:"冒険のはじまり",
-description:"今日もここからスタート！",
-ids:[]
-}
-
+const STAGES = {
+  eiko: [
+    { id: "m_sum", name: "サマー算数山", task: "算数：見開き1ページ", coin: 4, max: 30, icon: "⛰️" },
+    { id: "j_sum", name: "サマー国語の森", task: "国語：見開き1ページ", coin: 4, max: 30, icon: "🌳" },
+    { id: "s_sum", name: "サマー理科洞窟", task: "理科：見開き1ページ", coin: 4, max: 30, icon: "🦇" },
+    { id: "c_past", name: "計算試練の塔", task: "計算日記：1ページ", coin: 2, max: 108, icon: "🧮" },
+    { id: "k_past", name: "漢字試練の道", task: "漢字日記：1ページ", coin: 2, max: 108, icon: "🖌️" }
+  ],
+  english: [{ id: "ka_hw", name: "KA HW港", task: "KAホームワーク Day1〜3", coin: 3, max: 12, icon: "⛵" }],
+  music: [{ id: "piano", name: "ピアノホール", task: "ピアノ練習：20分", coin: 3, max: 30, icon: "🎼" }],
+  korean: [{ id: "ebs", name: "EBSシアター", task: "EBS：30分視聴", coin: 3, max: 30, icon: "📺" }],
+  japan: [{ id: "wa", name: "和の道場", task: "やり直し・復習：15分", coin: 3, max: 30, icon: "🍵" }],
+  hiroo: [{ id: "goal", name: "ひろお大門", task: "ひろお学園到着！", coin: 10, max: 1, icon: "👑" }]
 };
 
-
-/* ====================
-   マップ上の進捗
-==================== */
-
-function getProgress(ids){
-
-if(!ids.length)return "";
-
-const list=data.filter(x=>ids.includes(x.id));
-
-const done=list.reduce((a,x)=>a+x.done,0);
-
-const total=list.reduce((a,x)=>a+x.total,0);
-
-return `${done}/${total}`;
-
-}
-
-
-/* ====================
-   場所を開く
-==================== */
-
-function openPlace(key){
-
-const p=places[key];
-
-document.getElementById("placeEmoji").textContent=p.emoji;
-
-document.getElementById("placeName").textContent=p.name;
-
-document.getElementById("placeDescription").textContent=p.description;
-
-const card=document.getElementById("missionCard");
-
-card.style.display="block";
-
-
-if(!p.ids.length){
-
-document.getElementById("placeMissions").innerHTML=`
-
-<div style="text-align:center;padding:20px">
-
-<div style="font-size:45px">${p.emoji}</div>
-
-<p><b>この場所の冒険はこれから増えていくよ！</b></p>
-
-<p class="small">
-まずは他の場所の冒険を進めてみよう。
-</p>
-
-</div>
-
-`;
-
-}else{
-
-const list=data.filter(x=>p.ids.includes(x.id));
-
-document.getElementById("placeMissions").innerHTML=
-
-list.map(x=>{
-
-const pct=Math.round(x.done/x.total*100);
-
-return `
-
-<div class="mission">
-
-<button
-class="check ${x.done>=x.total?'done':''}"
-onclick="complete(${x.id})">
-
-${x.done>=x.total?'✓':'+'}
-
-</button>
-
-<div class="name">
-
-<b>${x.name}</b>
-
-<div class="small">
-${x.done}/${x.total} クリア　🪙 ${x.coin}
-</div>
-
-<div class="progress">
-
-<div
-class="bar"
-style="width:${pct}%">
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-}).join("");
-
-}
-
-document
-.getElementById("missionCard")
-.scrollIntoView({
-behavior:"smooth",
-block:"start"
-});
-
-}
-
-
-/* ====================
-   ミッション完了
-==================== */
-
-function complete(id){
-
-const x=data.find(a=>a.id===id);
-
-if(!x||x.done>=x.total)return;
-
-x.done++;
-
-coins+=x.coin;
-
-save();
-
-render();
-
-let msg=
-
-`「${x.name}」を1つクリア！ 🪙 +${x.coin}<br><br>
-🐱 モコ「すごい！今日もちゃんと前に進んだね！」`;
-
-
-if(x.name.includes("KAコネクト"))
-
-msg+=`<br><br>🌊 英語の海のボーナス冒険！`;
-
-
-if(x.name.includes("算数")&&Math.random()<0.35)
-
-msg+=`<br><br>
-🐱 モコ「そうだ、単位もちゃんと書けたかな？
-できてたら花丸だよ！」`;
-
-
-if(x.name.includes("国語")&&Math.random()<0.25)
-
-msg+=`<br><br>
-🐱 モコ「やり直しがあったら、もう一度見てみようね。」`;
-
-
-document.getElementById("modalText").innerHTML=msg;
-
-document
-.getElementById("modal")
-.classList.add("show");
-
-}
-
-
-/* ====================
-   モーダル
-==================== */
-
-function closeModal(){
-
-document
-.getElementById("modal")
-.classList.remove("show");
-
-}
-
-
-/* ====================
-   マップ進捗更新
-==================== */
-
-function updateMapProgress(){
-
-document.getElementById("mountainProgress")
-.textContent=
-getProgress(places.mountain.ids);
-
-document.getElementById("seaProgress")
-.textContent=
-getProgress(places.sea.ids);
-
-document.getElementById("musicProgress")
-.textContent=
-getProgress(places.music.ids);
-
-document.getElementById("koreaProgress")
-.textContent=
-getProgress(places.korea.ids);
-
-}
-
-
-/* ====================
-   全体描画
-==================== */
-
-function render(){
-
-document.getElementById("coins")
-.textContent=coins;
-
-updateMapProgress();
-
-const active=
-new Set(
-data
-.filter(x=>x.done>0)
-.map(x=>x.cat)
-);
-
-document.getElementById("balance").innerHTML=
-
-`
-
-<div class="small">
-今日ふれた冒険：${active.size}カテゴリ
-</div>
-
-<div class="progress">
-
-<div
-class="bar"
-style="width:${Math.min(active.size/5*100,100)}%">
-</div>
-
-</div>
-
-`;
-
-
-document.getElementById("settingsList").innerHTML=
-
-data.map(x=>`
-
-<div class="mission">
-
-<div class="name">
-
-<b>${x.cat}</b>
-
-<div class="small">
-${x.name}：${x.done}/${x.total}
-</div>
-
-</div>
-
-</div>
-
-`).join("");
-
-
-renderShop();
-
-}
-
-
-/* ====================
-   街のショップ
-==================== */
-
-const items=[
-
-["☕","カフェの看板",10,"街にカフェができる"],
-
-["🪴","お花の鉢植え",6,"ネコのおうちがかわいくなる"],
-
-["🐾","ネコのお友だち",15,"新しいペットがやってくる"],
-
-["👗","おしゃれな服",8,"クローゼットに追加"],
-
-["👘","和の島のお飾り",12,"百人一首の島に置ける"],
-
-["🚢","飛行船のパーツ",20,"冒険の飛行船が少し豪華になる"]
-
+const SHOP = [
+  { id: "cafe", name: "カフェ", icon: "☕", price: 10 },
+  { id: "flower", name: "お花畑", icon: "🪴", price: 5 },
+  { id: "cat", name: "ネコ友達", icon: "🐾", price: 15 },
+  { id: "dress", name: "ドレス", icon: "👗", price: 20 }
 ];
 
+const VOICES = [
+  { s: "モコ", a: "🐱", t: "今日も一緒に冒険に行こう！" },
+  { s: "エバちゃん", a: "👧", t: "すごーい！一緒にがんばろう！" },
+  { s: "あやさん", a: "👩", t: "自分のペースで進めば大丈夫♪" },
+  { s: "お父さん", a: "👨", t: "集中して頑張ったね！すごいぞ！" }
+];
 
-function renderShop(){
+let state = JSON.parse(localStorage.getItem("hikari_save")) || { coins: 0, stars: 0, area: "eiko", prog: {}, items: [] };
+let activeSt = null;
 
-document.getElementById("shop").innerHTML=
-
-items.map((it,i)=>`
-
-<div class="item">
-
-<div class="big">${it[0]}</div>
-
-<b>${it[1]}</b>
-
-<div class="small">
-${it[2]}コイン
-</div>
-
-<button
-class="btn ${bought.includes(i)?'secondary':''}"
-${bought.includes(i)||coins<it[2]?'disabled':''}
-onclick="buy(${i})">
-
-${bought.includes(i)?'購入済み':'買う'}
-
-</button>
-
-</div>
-
-`).join("");
-
+function save() {
+  localStorage.setItem("hikari_save", JSON.stringify(state));
+  document.getElementById("coins").innerText = state.coins;
+  document.getElementById("stars").innerText = state.stars;
 }
 
+function initWorld() {
+  const container = document.getElementById("world-map");
+  const svg = document.getElementById("world-svg");
+  document.querySelectorAll("#world-map .node").forEach(e => e.remove());
+  svg.innerHTML = "";
 
-function buy(i){
-
-const it=items[i];
-
-if(bought.includes(i)||coins<it[2])return;
-
-coins-=it[2];
-
-bought.push(i);
-
-save();
-
-render();
-
-if(i===0)
-document.getElementById("cafe").textContent="建設済み！";
-
-if(i===2)
-document.getElementById("petshop").textContent="オープン！";
-
-alert(`✨ ${it[1]}を手に入れたよ！`);
-
+  AREAS.forEach(a => {
+    const isLocked = state.stars < a.req;
+    const n = document.createElement("div");
+    n.className = `node ${isLocked ? 'locked' : ''}`;
+    n.style.left = a.x + "%"; n.style.top = a.y + "%";
+    n.innerHTML = `<div class="icon-box">${a.icon}</div><div class="label">${a.name} ${isLocked ? `(⭐${a.req})` : ''}</div>`;
+    n.onclick = () => {
+      if (isLocked) return alert(`⭐星が ${a.req} 個必要だよ！`);
+      state.area = a.id;
+      document.getElementById("player").style.left = a.x + "%";
+      document.getElementById("player").style.top = a.y + "%";
+      save();
+      setTimeout(() => openStage(a), 500);
+    };
+    container.appendChild(n);
+  });
+  save();
 }
 
-
-/* ====================
-   ページ切り替え
-==================== */
-
-function showPage(page,btn){
-
-["home","town","settings"]
-
-.forEach(p=>
-
-document.getElementById(p)
-.style.display=
-p===page?"block":"none"
-
-);
-
-document
-.querySelectorAll(".nav button")
-.forEach(b=>
-b.classList.remove("active")
-);
-
-btn.classList.add("active");
-
+function openStage(area) {
+  document.getElementById("stage-title").innerText = `${area.icon} ${area.name}`;
+  const container = document.getElementById("stage-map");
+  document.querySelectorAll("#stage-map .node").forEach(e => e.remove());
+  
+  const list = STAGES[area.id] || [];
+  list.forEach((st, idx) => {
+    const y = 80 + idx * 80;
+    const done = state.prog[st.id] || 0;
+    const n = document.createElement("div");
+    n.className = "node";
+    n.style.left = (idx % 2 === 0 ? 35 : 65) + "%";
+    n.style.top = y + "px";
+    n.innerHTML = `<div class="icon-box" style="width:44px; height:44px; font-size:22px;">${st.icon}</div><div class="label">${st.name} (${done}/${st.max})</div>`;
+    n.onclick = () => {
+      activeSt = st;
+      const v = VOICES[Math.floor(Math.random() * VOICES.length)];
+      document.getElementById("m-title").innerText = st.name;
+      document.getElementById("m-speaker").innerText = v.s + "：";
+      document.getElementById("m-text").innerText = `「${v.t}」`;
+      document.getElementById("m-task").innerText = st.task;
+      document.getElementById("modal").classList.add("active");
+    };
+    container.appendChild(n);
+  });
+  showScreen("stage-screen");
 }
 
+function closeModal() { document.getElementById("modal").classList.remove("active"); }
 
-/* ====================
-   リセット
-==================== */
-
-function resetAll(){
-
-if(confirm("進捗を最初に戻しますか？")){
-
-localStorage.removeItem("hikariDataV3");
-
-localStorage.removeItem("hikariCoinsV3");
-
-localStorage.removeItem("hikariBoughtV3");
-
-location.reload();
-
+function clearTask() {
+  closeModal();
+  state.coins += activeSt.coin;
+  state.stars += 1;
+  state.prog[activeSt.id] = (state.prog[activeSt.id] || 0) + 1;
+  save();
+  alert(`🎉 試練クリア！\n🪙 コイン +${activeSt.coin} ⭐ 星 +1`);
+  openStage(AREAS.find(a => a.id === state.area));
 }
 
+function toggleTown() {
+  const box = document.getElementById("town-items");
+  box.innerHTML = state.items.map(i => SHOP.find(s => s.id === i)?.icon || '').join(" ");
+  const shop = document.getElementById("shop");
+  shop.innerHTML = SHOP.map(i => {
+    const bought = state.items.includes(i.id);
+    return `<div style="background:#fff; padding:10px; border-radius:10px;">
+      <div style="font-size:24px;">${i.icon}</div>
+      <div style="font-size:12px;">${i.name}</div>
+      ${bought ? '<span style="font-size:11px; color:#aaa;">購入済</span>' : `<button onclick="buy('${i.id}', ${i.price})" style="background:#ff6b9d; color:#fff; border:none; padding:4px 8px; border-radius:10px; font-size:11px; margin-top:4px;">🪙 ${i.price}</button>`}
+    </div>`;
+  }).join("");
+  showScreen("town-screen");
 }
 
+function buy(id, price) {
+  if (state.coins < price) return alert("🪙 コインが足りないよ！");
+  state.coins -= price;
+  state.items.push(id);
+  save();
+  toggleTown();
+}
 
-/* ====================
-   初期表示
-==================== */
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
 
-render();
-
-</script></body>
+window.onload = initWorld;
+</script>
+</body>
 </html>
+
